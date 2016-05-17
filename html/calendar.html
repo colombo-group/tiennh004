@@ -5,65 +5,95 @@
 	<title>Calendar</title>
 
 	<style type="text/css">
-		#calendar-container{
-    		padding: 10px;
-   			width: 230px;
+		body {
+			background-color: #a4ccdd;
+		}
+
+		#calendar-container {
+    		padding: 3px;
+   			width: 201px;
     		text-align: center;
     		margin: auto; 
     		border: 1px solid #eee;
-    		border-radius: 10px;
-    		font-size: 16px;
+    		border-radius: 2px;
     		font-family: Arial;
-   	 		background-color: #FFFEBE;
+   	 		background-color: #ffffff;
 		}
 
-		#calendar-container>div{
-    		padding: 0;
-    		margin-bottom: 10px;
+		#calendar-month-year {
+    		font-size: 12px;
+    		float: left;
+    		height: 100%;
+    		width: 155px;
+    		padding-top: 8px;
 		}
 
-		#calendar-month-year{
-    		margin: 5px;
-		}
-
-		#calendar-header{
-			/*border: solid 1px #d3d3d3;*/
-            background-color: yellow;
-            color: red;
-            height: 21px;
+		#calendar-header {
+			
+            background-color: #da2128;
+            color: #ffffff;
+            height: 30px;
 		} 
 
-		#calendar-dates table tr td{
-    		padding: 5px;
-    		border: solid 1px #d3d3d3;
-            color: blue;
+		#calendar-header img {
+			
+            height: 10px;
+            width: 5px;
+            padding-top: 8px;
 		}
 
-		.today {
-			background-color: #0EEF5E;
+		#calendar-header button {
+			
+			outline: none; 
+		}
+
+		#calendar-header img:active {
+			
+            border: none;
+		}
+
+		#calendar-dates table tr td {
+    		padding: 5px;
+    		border: solid 1px #d3d3d3;
+            color: #272727;
+            background-color: #e1e1e1;
+            font-size: 12px; 
+		}
+
+		#calendar-dates table tr td.today {
+			background-color: #da2128;
+			color: #ffffff;
+			font-weight: bold;
 		}
 
         #Next {
             float: right;
             cursor: pointer;
-            background-color: red;
-            color: yellow;
+            background-color: #da2128;
+            color: #ffffff;
+            border: none;
         }
 
         #Previous {
             float: left;
             cursor: pointer;
-            background-color: red;
-            color: yellow;
+            background-color: #da2128;
+            color: #ffffff;
+            border: none;
+         
         }
 
         #calendar-dates table tr td.weekday {
-            background-color: yellow;
-            color: red;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            font-size: 12px; 
+            font-weight: bold;
         }
 
         #calendar-dates table tr td.no-border {
             border: none;
+            background-color: #ffffff;
         }
 	</style>
 
@@ -112,7 +142,7 @@
             //row for the day letters
             for(var c=0; c<=6; c++){
                 var td = document.createElement('td');
-                var day_name2 = ['Su','M','Tu','W','Th','F','Sa'];
+                var day_name2 = ['Su','Mo','Tu','We','Th','Fr','Sa'];
                 td.setAttribute("class", "weekday");
                 td.innerHTML = day_name2[c];
                 tr.appendChild(td);
@@ -211,9 +241,9 @@
 <body>
 <div id="calendar-container">
             <div id="calendar-header">
-                <button id="Previous" onclick="movePrevious();"><</button>
+                <button id="Previous" onclick="movePrevious();"><img src="../images/previous.jpg"></button>
                 <span id="calendar-month-year"></span>
-                <button id="Next" onclick="moveNext();">></button>
+                <button id="Next" onclick="moveNext();"><img src="../images/next.jpg"></button>
             </div>
             <div id="calendar-dates">
             </div>
