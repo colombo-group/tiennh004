@@ -7,7 +7,7 @@
         <style type="text/css">
             .calculator {
                 width:300px;
-                height:300px;
+                height:370px;
                 background-color:blanchedalmond;
                 border: 10px outset #CCCCCC;
                 margin:auto;
@@ -15,7 +15,7 @@
                 padding-bottom:5px;
             }
             .calculator td {
-                height:16.66%;
+                height:11.66%;
             }
             .calc_td_result {
                 text-align:center;
@@ -37,6 +37,7 @@
             .calc_td_btn {
                 width:25%;
                 height:100%;
+                outline: none;
             }
             .calc_btn {
                 width:90%;
@@ -76,7 +77,8 @@
         </style>
 
         <script type="text/javascript">
-            calc_array = new Array();
+            var calc_array = new Array();
+            var mem=0;
             var calcul=0;
             var pas_ch=0;
            
@@ -89,11 +91,30 @@
             }
             //
             function add_calc(id,n){
+
                 if(calc_array[id][1]==1){
-                        document.getElementById(id+'_result').value=n;
+                	if(n=='.') {
+                		calc_array[id][1]==1;
+                		return true;	
+                	} else
+                    	document.getElementById(id+'_result').value=n;
                 }
                 else{
-                        document.getElementById(id+'_result').value+=n;
+                        if(n=='.') {
+                        	var temp = document.getElementById(id+'_result').value;
+                        	var len = temp.length;
+                        	var kt = 1;
+                        	for(i=0;i<len;i++)
+                        		if(temp[i]=='.') {
+                        			kt = 0;
+                        			break;
+                        		}
+                        	
+                        	if(temp[len-1]!='.'&&kt==1)
+                        		document.getElementById(id+'_result').value+=n;	
+
+                        } else
+                        	document.getElementById(id+'_result').value+=n;
                 }
 
                 if(calc_array[id][0]=='='){
@@ -174,6 +195,28 @@
                 return true;
             }
             
+            function memory(id, n) {
+            	
+            	if(n=='mc') {
+            		mem = 0;
+            	}
+            	if(n=='mr') {
+            		document.getElementById(id+'_result').value = mem;
+            	}
+            	if(n=='madd') {
+            		mem = parseFloat(mem) + parseFloat(document.getElementById(id+'_result').value); 
+            		calc_array[id][3]=0;
+            		calc_array[id][1] = 1;
+            		//alert(mem);
+            	}
+            	if(n=='msub') {
+            		mem = parseFloat(mem) - parseFloat(document.getElementById(id+'_result').value); 
+            		calc_array[id][3]=0;
+            		calc_array[id][1] = 1;
+            		//alert(mem);
+            	}
+            }
+
         </script>
     </head>
     <body>
@@ -185,10 +228,24 @@
             </tr>
             <tr>
                 <td class="calc_td_btn">
+                        <input type="button" class="calc_btn2" value="MC" onclick="javascript:memory('calc','mc');" />
+                </td>
+                <td class="calc_td_btn">
+                        <input type="button" class="calc_btn2" value="MR" onclick="javascript:memory('calc','mr');" />
+                </td>
+                <td class="calc_td_btn">
+                        <input type="button" class="calc_btn2" value="M+" onclick="javascript:memory('calc','madd');" />
+                </td>
+                <td class="calc_td_btn">
+                        <input type="button" class="calc_btn2" value="M-" onclick="javascript:memory('calc','msub');" />
+                </td>
+            </tr>
+            <tr>
+                <td class="calc_td_btn">
                         <input type="button" class="calc_btn3" value="CE" onclick="javascript:f_calc('calc','ce');" />
                 </td>
                 <td class="calc_td_btn">
-                        <input type="button" class="calc_btn3" value="&larr;" onclick="javascript:f_calc('calc','nbs');" />
+                        <input type="button" class="calc_btn2" value="&larr;" onclick="javascript:f_calc('calc','nbs');" />
                 </td>
                 <td class="calc_td_btn">
                         <input type="button" class="calc_btn2" value="%" onclick="javascript:f_calc('calc','%');" />
